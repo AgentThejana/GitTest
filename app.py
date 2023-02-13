@@ -86,5 +86,4 @@ def download():
     return send_file('out.mp3')
     
 
-app.run()
 
