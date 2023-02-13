@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="percentage" style="position: absolute; top: 33%; left: 47%;"></h1>
+    <div id="progress" style="position: absolute;border-radius: 10px; top: 41%;left: 35%;width: 0px;height: 50px; background-color: aqua;"></div>
+    
+    <div style="position: absolute;border-radius: 10px; top: 40.5%;left: 35%;width: 495px;height: 50px; border:5px solid; border-color:black;"></div>
+    <a href="http://127.0.0.1:5000/download/audio" style="position: absolute; top: 50%;left: 45%; font-size: 25px;">Download Mp3</a>
+    <script type="text/javascript">
+       
+        const bar = document.getElementById('progress')
+        const percentage = document.getElementById('percentage')
+        const download_link = document.querySelector('a')
+        let barwidth = 500
+        
+        download_link.style.display = 'none'
+
+        fetch("/generate", {
+            method: "POST",
+            body: ""
+        })
+        .then(res => {
+            return res.text();    
+        }).then(res => {
+            console.log(res)
+            download_link.style.display = 'block'
+        });
+    
+        setTimeout(()=>{
+            const check_percentage = setInterval(()=>{
+
+                fetch("/progress", {
+                    method: "POST",
+                    body: ""
+                })
+                .then(res => {
+                    return res.text();    
+                }).then(res => {
+                    console.log(res);
+                    percentage.innerText = parseInt(res)+'%';
+                    bar.style.width = (barwidth * parseInt(res)/100)+'px';
+                    if (res == '100'){
+                        clearTimeout(check_percentage);
+                    }
+                });
+                
+            },3000)
+        },10)  
+    </script>
+</body>
+</html>

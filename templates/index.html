@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTS - By Black Dragon</title>
+</head>
+<body>
+    <form action="/tts" method="post">
+        <textarea id='tts-text' name="tts" style="width:1200px;height: 700px; font-size: 20px;margin-top: 80px;margin-left: 350px;" placeholder="Please enter/paste a paragraph with more than 8 words.."></textarea>
+        <button onclick="submit_tts" style="position: absolute;top: 45%;left: 85%; width:120px;height: 70px; font-size: 25px;">Done</button>
+    </form>
+    
+    <script src="{{url_for('static', filename='app.js')}}"></script>
+</body>
+</html>
